@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using UnityEngine;
 
-namespace Serialization {
+namespace DataUI {
 	public static class Serializer {
 		public static void Save<T>(T data, string savePath) {
 			var fullPath = DataFullPath(savePath);

@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Serialization {
+namespace DataUI {
 	public static class ReflectiveCopy {
 		[System.Flags]
 		public enum FieldClassEnum { 

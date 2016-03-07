@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Text;
 using System.Collections.Generic;
 
-namespace FieldEditingUI {
+namespace DataUI {
 	public class FieldEditor {
 		public enum FieldKindEnum { Int, Float, Bool, Vector2, Vector3, Vector4, Color, Enum, Unknown }
 		public const BindingFlags BINDING = BindingFlags.Public | BindingFlags.Instance;

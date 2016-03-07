@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace FieldEditingUI {
+namespace DataUI {
 	public class TextFloat {
 		float _value = 0;
 		string _strValue = "0";

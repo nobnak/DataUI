@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace FieldEditingUI {
+namespace DataUI {
 	public class FieldEditorTest : MonoBehaviour {
 		public Data data;
 
@@ -20,18 +20,18 @@ namespace FieldEditingUI {
 			_dataEditor.OnGUI();
 			GUILayout.EndVertical();
 		}
-	}
 
-	[System.Serializable]
-	public class Data {
-		public enum TeamEnum { Alpha, Bravo, Charlie }
+    	[System.Serializable]
+    	public class Data {
+    		public enum TeamEnum { Alpha, Bravo, Charlie }
 
-		public int intData;
-		public float floatData;
-		public Vector4 v4Data;
-		public Vector2 v2Data;
-		public Vector3 v3Data;
-		public Color colorData;
-		public TeamEnum team;
-	}
+    		public int intData;
+    		public float floatData;
+    		public Vector4 v4Data;
+    		public Vector2 v2Data;
+    		public Vector3 v3Data;
+    		public Color colorData;
+    		public TeamEnum team;
+    	}
+    }
 }
