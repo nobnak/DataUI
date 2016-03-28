@@ -19,6 +19,7 @@ namespace DataUI {
 			GUILayout.BeginVertical();
 			_dataEditor.OnGUI();
 			GUILayout.EndVertical();
+            GUI.DragWindow ();
 		}
 
     	[System.Serializable]
