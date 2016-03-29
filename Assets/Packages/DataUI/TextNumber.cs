@@ -99,5 +99,36 @@ namespace DataUI {
 				_texts[3].Value = _value.w;
 			}
 		}
-	}
+    }  
+
+    public class TextMatrix {
+        TextFloat[] _texts = new TextFloat[16];
+        Matrix4x4 _value = Matrix4x4.zero;
+
+        public TextMatrix(Matrix4x4 existing) {
+            for (var i = 0; i < _texts.Length; i++)
+                _texts[i] = new TextFloat(0);
+            Value = existing;
+        }
+
+        public string this[int index] {
+            get { return _texts[index].StrValue; }
+            set { _texts[index].StrValue = value; }
+        }
+
+        public Matrix4x4 Value {
+            get {
+                for (var y = 0; y < 4; y++)
+                    for (var x = 0; x < 4; x++)
+                        _value [x + y * 4] = _texts [y + x * 4].Value;
+                return _value;
+            }
+            set {
+                _value = value;
+                for (var y = 0; y < 4; y++)
+                    for (var x = 0; x < 4; x++)
+                        _texts [x + y * 4].Value = _texts [y + x * 4].Value;
+            }
+        }
+    }
 }

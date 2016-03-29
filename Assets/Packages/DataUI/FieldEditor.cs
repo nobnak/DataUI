@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DataUI {
 	public class FieldEditor {
-		public enum FieldKindEnum { Int, Float, Bool, Vector2, Vector3, Vector4, Color, Enum, Unknown }
+		public enum FieldKindEnum { Int, Float, Bool, Vector2, Vector3, Vector4, Matrix, Color, Enum, Unknown }
 		public const BindingFlags BINDING = BindingFlags.Public | BindingFlags.Instance;
 
 		public readonly System.Object data;
@@ -38,6 +38,8 @@ namespace DataUI {
 				return GenerateGUIVector3(fi);
 			case FieldKindEnum.Vector4:
 				return GenerateGUIVector4(fi);
+            case FieldKindEnum.Matrix:
+                return GenerateGUIMatrix4x4 (fi);
 			case FieldKindEnum.Color:
 				return GenerateGUIColor(fi);
 			case FieldKindEnum.Bool:
@@ -80,17 +82,36 @@ namespace DataUI {
 				fi.SetValue(data, (Vector3)textVector.Value);
 			};
 		}
-		public System.Action GenerateGUIVector4(FieldInfo fi) {
-			var textVector = new TextVector((Vector4)fi.GetValue(data));
-			return () => {
-				GUILayout.BeginHorizontal();
-				GUILayout.Label(string.Format("{0} ", fi.Name), GUILayout.ExpandWidth(false));
-				for (var i = 0; i < 4; i++)
-					textVector[i] = GUILayout.TextField(textVector[i], GUILayout.ExpandWidth(true), GUILayout.MinWidth(30f));
-				GUILayout.EndHorizontal();
-				fi.SetValue(data, textVector.Value);
-			};
-		}
+        public System.Action GenerateGUIVector4(FieldInfo fi) {
+            var textVector = new TextVector((Vector4)fi.GetValue(data));
+            return () => {
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(string.Format("{0} ", fi.Name), GUILayout.ExpandWidth(false));
+                for (var i = 0; i < 4; i++)
+                    textVector[i] = GUILayout.TextField(textVector[i], GUILayout.ExpandWidth(true), GUILayout.MinWidth(30f));
+                GUILayout.EndHorizontal();
+                fi.SetValue(data, textVector.Value);
+            };
+        }
+        public System.Action GenerateGUIMatrix4x4(FieldInfo fi) {
+            var textMatrix = new TextMatrix((Matrix4x4)fi.GetValue(data));
+            return () => {
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(string.Format("{0} ", fi.Name), GUILayout.ExpandWidth(false));
+                GUILayout.BeginVertical();
+                for (var y = 0; y < 4; y++) {
+                    GUILayout.BeginHorizontal();
+                    for (var x = 0; x < 4; x++) {
+                        textMatrix[x + y * 4] = GUILayout.TextField(
+                            textMatrix[x + y * 4], GUILayout.ExpandWidth(true), GUILayout.MinWidth(30f));
+                    }
+                    GUILayout.EndHorizontal();
+                }
+                GUILayout.EndVertical();
+                GUILayout.EndHorizontal();
+                fi.SetValue(data, textMatrix.Value);
+            };
+        }
 		public System.Action GenerateGUIColor(FieldInfo fi) {
 			var textVector = new TextVector((Color)fi.GetValue(data));
 			return () => {
@@ -179,6 +200,8 @@ namespace DataUI {
 					return FieldKindEnum.Vector3;
 				if (fieldType == typeof(Vector4))
 					return FieldKindEnum.Vector4;
+                if (fieldType == typeof(Matrix4x4))
+                    return FieldKindEnum.Matrix;
 			}
 
 			return FieldKindEnum.Unknown;

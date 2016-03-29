@@ -31,6 +31,7 @@ namespace DataUI {
     		public Vector4 v4Data;
     		public Vector2 v2Data;
     		public Vector3 v3Data;
+            public Matrix4x4 mData;
     		public Color colorData;
     		public TeamEnum team;
     	}
