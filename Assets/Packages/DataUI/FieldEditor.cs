@@ -206,5 +206,29 @@ namespace DataUI {
 
 			return FieldKindEnum.Unknown;
 		}
+
+        public class GUIInt {
+            readonly FieldInfo _fi;
+            readonly TextInt _textInt;
+            readonly System.Action _onGUi;
+
+            public GUIInt(FieldInfo fi) {
+                _textInt = new TextInt((int)fi.GetValue(data));
+                _onGUi = () => {
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label(string.Format("{0} ", fi.Name), GUILayout.ExpandWidth(false));
+                    _textInt.StrValue = GUILayout.TextField(_textInt.StrValue, GUILayout.ExpandWidth(true), GUILayout.MinWidth(30f));
+                    GUILayout.EndHorizontal();
+                    fi.SetValue(data, _textInt.Value);
+                };
+            }
+
+            public void OnGUI() {
+                _onGUi ();
+            }
+            public void Reset() {
+                _textInt.Value = 
+            }
+        }
 	}
 }
