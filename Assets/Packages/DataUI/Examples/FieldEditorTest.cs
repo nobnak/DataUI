@@ -18,6 +18,8 @@ namespace DataUI {
 		void GUIWindow(int id) {
 			GUILayout.BeginVertical();
 			_dataEditor.OnGUI();
+			if (GUILayout.Button ("Load"))
+				_dataEditor.Load ();
 			GUILayout.EndVertical();
             GUI.DragWindow ();
 		}
@@ -34,6 +36,7 @@ namespace DataUI {
             public Matrix4x4 mData;
     		public Color colorData;
     		public TeamEnum team;
+			public int[] arrayData;
     	}
     }
 }
