@@ -13,7 +13,7 @@ namespace DataUI {
 			_dataEditor = new FieldEditor(data);
 		}
 		void OnGUI() {
-			_window = GUILayout.Window(0, _window, GUIWindow, "GUI");
+            _window = GUILayout.Window(GetInstanceID(), _window, GUIWindow, "GUI");
 		}
 		void GUIWindow(int id) {
 			GUILayout.BeginVertical();
