@@ -8,8 +8,8 @@ namespace DataUI.Settings {
     public class PositionClusteringUI : SettingsUI<PositionClusteringUI.Data> {
         public Camera targetCam;
 
-        PositionClustering clustering;
-
+        protected PositionClustering clustering;
+        
         GLFigure _fig;
 
         #region Unity
