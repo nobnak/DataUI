@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Gist.DataUI;
+using nobnak.Gist.DataUI;
 
 namespace DataUI {
 	public class FieldEditorTest : MonoBehaviour {

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Gist;
-using Gist.DataUI;
+using nobnak.Gist;
+using nobnak.Gist.DataUI;
 
 namespace DataUI.Settings {
     public class PreRenderingUI : PreRendering {

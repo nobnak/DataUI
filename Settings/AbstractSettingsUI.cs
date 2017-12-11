@@ -2,7 +2,7 @@
 using System.Collections;
 using System.IO;
 using DataUI;
-using Gist.DataUI;
+using nobnak.Gist.DataUI;
 
 namespace DataUI.Settings {
     

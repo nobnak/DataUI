@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Gist;
+using nobnak.Gist;
 using DataUI;
 
 namespace DataUI.Settings {

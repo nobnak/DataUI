@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
-using Gist;
-using Gist.DataUI;
+using nobnak.Gist;
+using nobnak.Gist.DataUI;
 
 namespace DataUI.Settings {
 
