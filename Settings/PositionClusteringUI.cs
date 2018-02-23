@@ -64,7 +64,8 @@ namespace DataUI.Settings {
         void DebugInput () {
             if (data.debugInputEnabled) {
                 if (Input.GetMouseButton (0)) {
-                    var p = (Vector2)targetCam.ScreenToViewportPoint (Input.mousePosition);
+                    var mousepos = Input.mousePosition;
+                    var p = new Vector2(mousepos.x / Screen.width, mousepos.y / Screen.height);
                     clustering.Receive (p);
                 }
                 if (Input.GetMouseButtonDown (1)) {
