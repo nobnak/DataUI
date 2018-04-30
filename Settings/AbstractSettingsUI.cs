@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.IO;
 using DataUI;
@@ -69,7 +69,8 @@ namespace DataUI.Settings {
                     return;
 
                 try {
-                    JsonUtility.FromJsonOverwrite(File.ReadAllText(path), data);
+					if (File.Exists(path))
+	                    JsonUtility.FromJsonOverwrite(File.ReadAllText(path), data);
                 } catch (System.Exception e) {
                     Debug.Log (e);
                 }
