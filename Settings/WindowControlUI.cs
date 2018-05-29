@@ -1,11 +1,10 @@
-using System.Runtime.InteropServices;
-using UnityEngine;
-using nobnak.Gist;
 using nobnak.Gist.DataUI;
+using nobnak.Gist.WindowSystem;
+using UnityEngine;
 
 namespace DataUI.Settings {
 
-    public class WindowControlUI : WindowControl {
+	public class WindowControlUI : WindowControl {
         public bool guiVisibility;
         public KeyCode guiToggle = KeyCode.W;
 
