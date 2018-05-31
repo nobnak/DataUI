@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using DataUI;
 using nobnak.Gist.DataUI;
+using nobnak.Gist.IMGUI.Scope;
 
 namespace DataUI.Settings {
     
@@ -40,12 +41,6 @@ namespace DataUI.Settings {
                     if (mode == ModeEnum.Normal)
                         Save (data);
                 }
-
-                switch (mode) {
-                case ModeEnum.GUI:
-                    NotifyOnDataChange ();
-                    break;
-                }
             }
             public virtual void OnGUI(MonoBehaviour b) {
                 if (mode == ModeEnum.GUI)
@@ -57,7 +52,8 @@ namespace DataUI.Settings {
             }
 
             void Window(int id) {
-                _dataEditor.OnGUI ();
+				using (new GUIChangedScope(NotifyOnDataChange))
+					_dataEditor.OnGUI ();
                 GUI.DragWindow ();
             }
             #endregion
