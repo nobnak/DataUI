@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using nobnak.Gist;
@@ -36,7 +36,7 @@ namespace DataUI.Settings {
                 return;
 
             var rot = targetCam.transform.rotation;
-            var size = data.debugInputSize * Vector2.one;
+            var size = data.DebugInputSize * Vector2.one;
             foreach (var pp in clustering.GetPointEnumerator()) {
                 var p = (Vector3)pp.pos;
                 p.z = data.debugInputDepth;
@@ -79,9 +79,16 @@ namespace DataUI.Settings {
             public bool debugInputEnabled = false;
             public bool debugPointsVisible = false;
             public float debugInputDepth = 10f;
-            public float debugInputSize = 1f;
+			
             public Color debugInputColor = new Color(1f, 0f, 0f, 0.2f);
             public Color debugClusterColor = new Color(0f, 1f, 1f, 0.5f);
-        }
+
+			protected float debugInputSize = 1f;
+
+			public float DebugInputSize {
+				get { return debugInputSize; }
+				set { debugInputSize = value; }
+			}
+		}
     }
 }
