@@ -22,9 +22,6 @@ namespace DataUI.Settings {
         protected override void Update() {
             base.Update ();
             DebugInput();
-
-            var t = Time.timeSinceLevelLoad - data.effectiveDuration;
-            clustering.RemoveBeforeTime (t);
             clustering.UpdateCluster();
         }
         protected virtual void OnRenderObject() {
@@ -37,12 +34,12 @@ namespace DataUI.Settings {
 
             var rot = targetCam.transform.rotation;
             var size = data.DebugInputSize * Vector2.one;
-            foreach (var pp in clustering.GetPointEnumerator()) {
+            foreach (var pp in clustering.IteratePoints()) {
                 var p = (Vector3)pp.pos;
                 p.z = data.debugInputDepth;
                 _fig.FillCircle (targetCam.ViewportToWorldPoint (p), rot, size, data.debugInputColor);
             }
-            foreach (var c in clustering.GetClusterEnumerator()) {
+            foreach (var c in clustering.IteratePositions()) {
                 var p = (Vector3)c;
                 p.z = data.debugInputDepth;
                 _fig.FillCircle (targetCam.ViewportToWorldPoint (p), rot, size, data.debugClusterColor);
@@ -69,7 +66,7 @@ namespace DataUI.Settings {
                     clustering.Receive (p);
                 }
                 if (Input.GetMouseButtonDown (1)) {
-
+					clustering.Clear();
                 }
             }
         }
