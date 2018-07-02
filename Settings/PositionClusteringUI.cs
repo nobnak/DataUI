@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using nobnak.Gist;
@@ -22,9 +22,7 @@ namespace DataUI.Settings {
         protected override void Update() {
             base.Update ();
             DebugInput();
-
-            var t = Time.timeSinceLevelLoad - data.effectiveDuration;
-            clustering.RemoveBeforeTime (t);
+			
             clustering.UpdateCluster();
         }
         protected virtual void OnRenderObject() {
@@ -37,13 +35,13 @@ namespace DataUI.Settings {
 
             var rot = targetCam.transform.rotation;
             var size = data.debugInputSize * Vector2.one;
-            foreach (var pp in clustering.GetPointEnumerator()) {
+            foreach (var pp in clustering.IteratePoints()) {
                 var p = (Vector3)pp.pos;
                 p.z = data.debugInputDepth;
                 _fig.FillCircle (targetCam.ViewportToWorldPoint (p), rot, size, data.debugInputColor);
             }
-            foreach (var c in clustering.GetClusterEnumerator()) {
-                var p = (Vector3)c;
+            foreach (var c in clustering.IterateClusters()) {
+                var p = (Vector3)c.latest.pos;
                 p.z = data.debugInputDepth;
                 _fig.FillCircle (targetCam.ViewportToWorldPoint (p), rot, size, data.debugClusterColor);
             }
