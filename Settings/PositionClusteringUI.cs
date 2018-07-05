@@ -1,14 +1,13 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using nobnak.Gist;
+using nobnak.Gist.Sensor;
+using UnityEngine;
 
 namespace DataUI.Settings {
 
-    public class PositionClusteringUI : SettingsUI<PositionClusteringUI.Data> {
+	public class PositionClusteringUI : SettingsUI<PositionClusteringUI.Data> {
         public Camera targetCam;
 
-        protected PositionClustering clustering;
+        protected PositionCluster2D clustering;
         
         GLFigure _fig;
 
@@ -16,7 +15,7 @@ namespace DataUI.Settings {
         protected override void Awake() {
             base.Awake ();
             _fig = new GLFigure ();
-            clustering = new PositionClustering (data);
+            clustering = new PositionCluster2D (data);
 
         }
         protected override void Update() {
@@ -73,7 +72,7 @@ namespace DataUI.Settings {
         }
 
         [System.Serializable]
-        public class Data : PositionClustering.Data {
+        public class Data : PositionCluster2D.Data {
             public bool debugInputEnabled = false;
             public bool debugPointsVisible = false;
             public float debugInputDepth = 10f;
