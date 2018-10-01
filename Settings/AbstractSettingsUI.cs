@@ -6,7 +6,7 @@ using nobnak.Gist.DataUI;
 using nobnak.Gist.IMGUI.Scope;
 
 namespace DataUI.Settings {
-    
+
     public abstract class AbstractSettingsUI : MonoBehaviour {
         public SettingsCore core;
 
@@ -114,8 +114,7 @@ namespace DataUI.Settings {
         }
 
         protected virtual void NotifyOnDataChange() {
-            if (EventOnDataChange != null)
-                EventOnDataChange ();
+            EventOnDataChange?.Invoke ();
             OnDataChange ();
         }
         protected virtual void OnDataChange() {}
