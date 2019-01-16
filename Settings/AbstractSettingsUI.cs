@@ -31,11 +31,12 @@ namespace DataUI.Settings {
             Rect _window;
 
             public virtual void OnEnable<T>(T data) {
-                Load (data);
-                _dataEditor = new FieldEditor (data);
-                NotifyOnDataChange ();
-            }
-            public virtual void Update<T>(T data) {
+				Load(data);
+				RebuildGUIFrom(data);
+				NotifyOnDataChange();
+			}
+
+			public virtual void Update<T>(T data) {
                 if (Input.GetKeyDown (toggleKey)) {
                     mode = (ModeEnum)(((int)mode + 1) % (int)ModeEnum.End);
                     if (mode == ModeEnum.Normal)
@@ -46,8 +47,51 @@ namespace DataUI.Settings {
                 if (mode == ModeEnum.GUI)
                     _window = GUILayout.Window (GetHashCode(), _window, Window, b.name, GUILayout.MinWidth (WINDOW_WIDTH));
             }
+			#endregion
 
-            void NotifyOnDataChange () {
+			#region interface
+			public void RebuildGUIFrom<T>(T data) {
+				_dataEditor = new FieldEditor(data);
+			}
+			#region Save/Load
+			public virtual void Load<T>(T data) {
+				string path;
+				if (!DataPath(out path))
+					return;
+
+				try {
+					if (File.Exists(path))
+						JsonUtility.FromJsonOverwrite(File.ReadAllText(path), data);
+				} catch (System.Exception e) {
+					Debug.Log(e);
+				}
+			}
+			public virtual void Save<T>(T data) {
+				string path;
+				if (!DataPath(out path))
+					return;
+
+				try {
+					File.WriteAllText(path, JsonUtility.ToJson(data, true));
+				} catch (System.Exception e) {
+					Debug.Log(e);
+				}
+			}
+			public virtual bool DataPath(out string path) {
+				var dir = Application.streamingAssetsPath;
+				switch (pathType) {
+					case PathTypeEnum.MyDocuments:
+						dir = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+						break;
+				}
+				path = Path.Combine(dir, dataPath);
+				return !string.IsNullOrEmpty(dataPath);
+			}
+			#endregion
+			#endregion
+
+			#region member
+			void NotifyOnDataChange () {
                 OnDataChange.Invoke ();
             }
 
@@ -55,42 +99,6 @@ namespace DataUI.Settings {
 				using (new GUIChangedScope(NotifyOnDataChange))
 					_dataEditor.OnGUI ();
                 GUI.DragWindow ();
-            }
-            #endregion
-
-            #region Save/Load
-            public virtual void Load<T>(T data) {
-                string path;
-                if (!DataPath (out path))
-                    return;
-
-                try {
-					if (File.Exists(path))
-	                    JsonUtility.FromJsonOverwrite(File.ReadAllText(path), data);
-                } catch (System.Exception e) {
-                    Debug.Log (e);
-                }
-            }
-            public virtual void Save<T>(T data) {
-                string path;
-                if (!DataPath (out path))
-                    return;
-
-                try {
-                    File.WriteAllText(path, JsonUtility.ToJson(data, true));
-                } catch (System.Exception e) {
-                    Debug.Log (e);
-                }
-            }
-            public virtual bool DataPath(out string path) {
-                var dir = Application.streamingAssetsPath;
-                switch (pathType) {
-                case PathTypeEnum.MyDocuments:
-                    dir = System.Environment.GetFolderPath (System.Environment.SpecialFolder.MyDocuments);
-                    break;
-                }
-                path = Path.Combine (dir, dataPath);
-                return !string.IsNullOrEmpty (dataPath);
             }
             #endregion
         }
