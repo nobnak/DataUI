@@ -1,4 +1,4 @@
-using nobnak.Gist;
+using nobnak.Gist.GLTools;
 using nobnak.Gist.Sensor;
 using UnityEngine;
 
